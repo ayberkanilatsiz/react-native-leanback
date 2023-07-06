@@ -1,6 +1,5 @@
 package com.rs.leanbacknative.utils;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -14,28 +13,26 @@ import java.util.List;
 import java.util.Random;
 
 public class DataManager {
-    public DataManager() {}
+    private static ArrayList<Integer> viewIds = new ArrayList<Integer>();
 
-    private ArrayList<Integer> viewIds = new ArrayList<Integer>();
-
-    public ArrayList getViewIds() {
+    public static ArrayList getViewIds() {
         return viewIds;
     }
 
-    public List<Card> setupData(@Nullable ReadableArray data, ReadableMap attributes) {
+    public static List<Card> setupData(@Nullable ReadableArray data, ReadableMap attributes) {
+        viewIds.clear();
         List<Card> rows = new ArrayList<>();
-        ArrayList<Integer> ids = new ArrayList<Integer>();
         Random random = new Random();
 
         for (int i = 0; i < data.size(); i++) {
             random.nextInt();
             int viewId = View.generateViewId() + random.nextInt(); // ensure viewID is not duplicate with React ones
-            ids.add(viewId);
+            viewIds.add(viewId);
+
             ReadableMap dataRowItem = data.getMap(i);
 
             Card card = new Card();
             card.setIndex(i);
-            card.setIsLast(i == data.size());
             card.setViewId(viewId);
             card.setId(validateString(dataRowItem, "id"));
             card.setTitle(validateString(dataRowItem, "title"));
@@ -47,7 +44,6 @@ public class DataManager {
             card.setBackdropUrl(validateString(dataRowItem, "backdropUrl"));
             card.setBackgroundColor(validateString(dataRowItem, "backgroundColor"));
             card.setOverlayPosition(validateString(dataRowItem, "overlayPosition"));
-            card.setDisplayLiveBadge(validateBoolean(dataRowItem, "displayLiveBadge"));
             card.setLiveBadgeColor(validateString(dataRowItem, "liveBadgeColor"));
             card.setLiveProgressBarColor(validateString(dataRowItem, "liveProgressBarColor"));
 
@@ -59,10 +55,6 @@ public class DataManager {
             card.setProgramEndTimestamp(validateLong(dataRowItem, "programEndTimestamp"));
             card.setPresenterType(getType(card, attributes));
             rows.add(card);
-        }
-
-        if (viewIds.size() == 0) {
-            viewIds = ids;
         }
 
         return rows;
@@ -112,6 +104,7 @@ public class DataManager {
                 res =  Long.parseLong(item.getString(prop));
                 break;
         }
+
         return res;
     }
     private static byte validateByte(ReadableMap item, String prop) {
@@ -127,14 +120,5 @@ public class DataManager {
         }
         return res;
     }
-    private static Boolean validateBoolean(ReadableMap item, String prop) {
-        Boolean res = false;
-        if (!item.hasKey(prop) || item.isNull(prop)) return false;
-        switch (item.getType(prop)) {
-            case Boolean:
-                res =  item.getBoolean(prop);
-                break;
-        }
-        return res;
-    }
 }
+

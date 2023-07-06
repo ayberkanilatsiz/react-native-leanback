@@ -30,6 +30,7 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.leanback.R;
 import androidx.leanback.widget.BaseCardView;
+import android.graphics.Typeface;
 
 /**
  * A subclass of {@link BaseCardView} with an {@link ImageView} as its main region. The
@@ -185,6 +186,7 @@ public class DefaultImageCardView extends BaseCardView {
         if (mImageView.getDrawable() == null) {
             mImageView.setVisibility(View.INVISIBLE);
         }
+        
         // Set Object Animator for image view.
         mFadeInAnimator = ObjectAnimator.ofFloat(mImageView, ALPHA, 1f);
         mFadeInAnimator.setDuration(
@@ -200,6 +202,10 @@ public class DefaultImageCardView extends BaseCardView {
         if (hasTitle && !hasImageOnly) {
             mTitleView = (TextView) inflater.inflate(R.layout.lb_image_card_view_themed_title,
                     mInfoArea, false);
+            Typeface typeface = Typeface.createFromAsset(mTitleView.getContext().getAssets(), "fonts/Montserrat-Medium.ttf");
+            mTitleView.setTypeface(typeface);
+            float textF = 12.f;
+            mTitleView.setTextSize(textF);
             mInfoArea.addView(mTitleView);
         }
 

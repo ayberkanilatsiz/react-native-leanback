@@ -59,6 +59,9 @@ public class CardPresenterSelector extends PresenterSelector {
                 case GRID:
                     presenter = new GridCardPresenter(mAttributes, card);
                     break;
+                case CATEGORY:
+                    presenter = new CategoryPresenter(mAttributes, card);
+                    break;
                 default:
                     presenter = new DefaultCardPresenter(mAttributes, card);
                     break;

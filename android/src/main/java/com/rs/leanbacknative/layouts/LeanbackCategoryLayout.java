@@ -20,6 +20,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.rs.leanbacknative.presenters.CardPresenterSelector;
+import com.rs.leanbacknative.presenters.CategoryPresenter;
 import com.rs.leanbacknative.presenters.GridPresenter;
 import com.rs.leanbacknative.presenters.GridCardPresenter;
 import com.rs.leanbacknative.utils.Constants;
@@ -28,12 +29,12 @@ import com.rs.leanbacknative.models.Card;
 import java.util.List;
 
 @SuppressLint("ViewConstructor")
-public class LeanbackGridLayout extends FrameLayout {
+public class LeanbackCategoryLayout extends FrameLayout {
     private ThemedReactContext mContext;
     private ArrayObjectAdapter mRowsAdapter;
     private VerticalGridFragment mVerticalGridFragment;
 
-    public LeanbackGridLayout(@NonNull ThemedReactContext context, VerticalGridFragment verticalGridFragment, int numberOfColumns) {
+    public LeanbackCategoryLayout(@NonNull ThemedReactContext context, VerticalGridFragment verticalGridFragment, int numberOfColumns) {
         super(context);
 
         mContext = context;
@@ -48,7 +49,7 @@ public class LeanbackGridLayout extends FrameLayout {
         verticalGridFragment.setGridPresenter(verticalGridPresenter);
         verticalGridPresenter.setShadowEnabled(false);
 
-        mRowsAdapter = new ArrayObjectAdapter(new GridCardPresenter());
+        mRowsAdapter = new ArrayObjectAdapter(new CategoryPresenter());
 
         FragmentManager fragmentManager = mContext.getCurrentActivity().getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -108,7 +109,7 @@ public class LeanbackGridLayout extends FrameLayout {
         mRowsAdapter = new ArrayObjectAdapter(cardPresenterSelector);
 
         for (int i = 0; i < rows.size(); i++) {
-            rows.get(i).setPresenterType(Card.Type.GRID);
+            rows.get(i).setPresenterType(Card.Type.CATEGORY);
             mRowsAdapter.add(rows.get(i));
         }
 

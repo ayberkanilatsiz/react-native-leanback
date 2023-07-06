@@ -13,8 +13,6 @@ public class Card implements Serializable {
 
     @Expose private int index;
 
-    @Expose private Boolean isLast;
-
     @Expose private int viewId;
 
     @Expose private String title;
@@ -32,8 +30,6 @@ public class Card implements Serializable {
     @Expose private String overlayText;
 
     private String overlayPosition;
-
-    private Boolean displayLiveBadge;
 
     private String liveBadgeColor;
 
@@ -95,14 +91,6 @@ public class Card implements Serializable {
         this.index = index;
     }
 
-    public Boolean isLast() {
-        return isLast;
-    }
-
-    public void setIsLast(Boolean isLast) {
-        this.isLast = isLast;
-    }
-
     public String getBackdropUrl() {
         return backdropUrl;
     }
@@ -157,12 +145,6 @@ public class Card implements Serializable {
 
     public void setOverlayPosition(String overlayPosition) {
         this.overlayPosition = overlayPosition;
-    }
-
-    public Boolean getDisplayLiveBadge() { return displayLiveBadge; }
-
-    public void setDisplayLiveBadge(Boolean displayLiveBadge) {
-        this.displayLiveBadge = displayLiveBadge;
     }
 
     public String getLiveBadgeColor() {
@@ -253,6 +235,7 @@ public class Card implements Serializable {
         COLOR_TEXT,
         VIDEO,
         GRID,
+        CATEGORY,
         DEFAULT
     }
 }

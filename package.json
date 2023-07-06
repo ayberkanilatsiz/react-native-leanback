@@ -1,41 +1,74 @@
 {
-  "name": "@reactseals/react-native-leanback",
-  "title": "React Native Leanback",
-  "version": "2.0.4-beta.2",
+  "_from": "@reactseals/react-native-leanback@2.0.3",
+  "_id": "@reactseals/react-native-leanback@2.0.3",
+  "_inBundle": false,
+  "_integrity": "sha512-l/YaWdE+bley9uxigiMSVU0e+kuqJ10zz6dzohR+y5r1ps2eJtcbiCHEf1dnxN/bFcy7yPBG8STDNGF+8TkUhA==",
+  "_location": "/@reactseals/react-native-leanback",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@reactseals/react-native-leanback@2.0.3",
+    "name": "@reactseals/react-native-leanback",
+    "escapedName": "@reactseals%2freact-native-leanback",
+    "scope": "@reactseals",
+    "rawSpec": "2.0.3",
+    "saveSpec": null,
+    "fetchSpec": "2.0.3"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@reactseals/react-native-leanback/-/react-native-leanback-2.0.3.tgz",
+  "_shasum": "3d736000b65492afa44255e946a417801644ea1b",
+  "_spec": "@reactseals/react-native-leanback@2.0.3",
+  "_where": "/Users/ayberkanilatsiz/development/MonkeysTeam/opus_android",
+  "author": {
+    "name": "Aurimas Mickys",
+    "email": "aurimas.mickys@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/reactseals/react-native-leanback/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Rokas Kasinskas",
+      "email": "https://github.com/kasinskas"
+    }
+  ],
+  "deprecated": false,
   "description": "Leanback implementation for React Native Android TV",
-  "main": "index.js",
-  "scripts": {
-    "publish:prod": "npm publish --access public",
-    "publish:beta": "npm publish --access public --tag beta"
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "react": "^16.9.0",
+    "react-native": "^0.61.5"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reactseals/react-native-leanback.git",
-    "baseUrl": "https://github.com/reactseals/react-native-leanback"
-  },
+  "homepage": "https://github.com/reactseals/react-native-leanback#readme",
   "keywords": [
     "react-native",
     "react native leanback",
     "android tv",
     "leanback"
   ],
-  "author": {
-    "name": "Aurimas Mickys",
-    "email": "aurimas.mickys@gmail.com"
-  },
-  "contributors": [
-    "Rokas Kasinskas <https://github.com/kasinskas>"
-  ],
   "license": "MIT",
   "licenseFilename": "LICENSE",
-  "readmeFilename": "README.md",
+  "main": "index.js",
+  "name": "@reactseals/react-native-leanback",
   "peerDependencies": {
     "react": "^16.8.1",
     "react-native": ">=0.60.0-rc.0 <1.0.x"
   },
-  "devDependencies": {
-    "lerna": "^3.22.1",
-    "react": "^16.9.0",
-    "react-native": "^0.61.5"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactseals/react-native-leanback.git",
+    "baseUrl": "https://github.com/reactseals/react-native-leanback"
+  },
+  "scripts": {
+    "publish:beta": "npm publish --access public --tag beta",
+    "publish:prod": "npm publish --access public"
+  },
+  "title": "React Native Leanback",
+  "version": "2.0.3"
 }

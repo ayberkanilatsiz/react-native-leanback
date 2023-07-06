@@ -13,6 +13,7 @@ import androidx.leanback.widget.Presenter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.facebook.react.bridge.ReadableArray;
@@ -23,20 +24,16 @@ import com.rs.leanbacknative.models.Card;
 import com.rs.leanbacknative.utils.Constants;
 import com.rs.leanbacknative.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 public abstract class AbstractCardPresenter<T extends BaseCardView> extends Presenter {
     protected Drawable mDefaultCardImage;
 
     protected Integer mCardWidth = Constants.DEFAULT_CARD_WIDTH;
     protected Integer mCardHeight = Constants.DEFAULT_CARD_HEIGHT;
     protected ReadableArray mForbiddenFocusDirections;
-    protected int nextFocusUpId = View.NO_ID;
-    protected int nextFocusDownId = View.NO_ID;
-    protected int nextFocusLeftId = View.NO_ID;
-    protected int nextFocusRightId = View.NO_ID;
+    protected int nextFocusUpId = -1;
+    protected int nextFocusDownId = -1;
+    protected int nextFocusLeftId = -1;
+    protected int nextFocusRightId = -1;
     protected int mBorderRadius;
     protected boolean mHasImageOnly;
     protected String mImageTransformationMode;
@@ -49,7 +46,8 @@ public abstract class AbstractCardPresenter<T extends BaseCardView> extends Pres
 
     @Override
     public final ViewHolder onCreateViewHolder(ViewGroup parent) {
-        mDefaultCardImage = ContextCompat.getDrawable(parent.getContext(), R.drawable.lb_fallback_bg);
+        mDefaultCardImage = ContextCompat.getDrawable(parent.getContext(), R.drawable.artboard);
+        mDefaultCardImage.setBounds(0,0,100,100);
         T cardView = onCreateView(parent.getContext());
         return new ViewHolder(cardView);
     }
@@ -71,10 +69,7 @@ public abstract class AbstractCardPresenter<T extends BaseCardView> extends Pres
     public abstract void onBindViewHolder(Card card, T cardView);
 
     public void onUnbindViewHolder(T cardView) {
-        cardView.setNextFocusLeftId(View.NO_ID);
-        cardView.setNextFocusRightId(View.NO_ID);
-        cardView.setNextFocusUpId(View.NO_ID);
-        cardView.setNextFocusDownId(View.NO_ID);
+
     }
 
     void initializeAttributes(ReadableMap attributes) {
@@ -93,36 +88,39 @@ public abstract class AbstractCardPresenter<T extends BaseCardView> extends Pres
     }
 
     void setFocusRules(View cardView, Card card) {
-        if (cardView.getId() == View.NO_ID)
+        if (cardView.getId() == -1)
             cardView.setId(card.getViewId());
 
-        if (mForbiddenFocusDirections != null) {
-            Utils.setForbiddenFocusDirections(mForbiddenFocusDirections, card, cardView);
-        }
+        if (mForbiddenFocusDirections != null)
+            Utils.setForbiddenFocusDirections(mForbiddenFocusDirections, cardView);
 
-        if (nextFocusUpId != View.NO_ID)
+        if (nextFocusUpId != -1)
             cardView.setNextFocusUpId(nextFocusUpId);
 
-        if (nextFocusDownId != View.NO_ID)
+        if (nextFocusDownId != -1)
             cardView.setNextFocusDownId(nextFocusDownId);
 
-        if (nextFocusLeftId != View.NO_ID && card.getIndex() == 0)
+        if (nextFocusLeftId != -1)
             cardView.setNextFocusLeftId(nextFocusLeftId);
 
-        if (nextFocusRightId != View.NO_ID && card.isLast())
+        if (nextFocusRightId != -1)
             cardView.setNextFocusRightId(nextFocusRightId);
     }
 
     void loadMainImage(ImageView imageView, Card card, @Nullable RequestOptions reqOptions) {
 
-        RequestOptions requestOptions = reqOptions != null ? reqOptions : mBorderRadius != 0 ?
-                (new RequestOptions()).transform(new CenterCrop(), new RoundedCorners(mBorderRadius)) :
-                Utils.getRequestOptions(mImageTransformationMode);
+        RequestOptions requestOptions = new RequestOptions().transform(new FitCenter());
+
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         Glide.with(imageView.getContext())
                 .load(card.getCardImageUrl())
                 .apply(requestOptions)
-                .error(mDefaultCardImage)
+                .error(
+                    Glide.with(imageView.getContext())
+                .load(mDefaultCardImage)
+                .apply(requestOptions)
+                )
                 .into(imageView);
     }
 }

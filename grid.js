@@ -8,6 +8,9 @@ import {
 const LeanbackGrid6Col = requireNativeComponent('LeanbackGrid6Col', null);
 const LeanbackGrid5Col = requireNativeComponent('LeanbackGrid5Col', null);
 const LeanbackGrid4Col = requireNativeComponent('LeanbackGrid4Col', null);
+const LeanbackGrid3Col = requireNativeComponent('LeanbackGrid3Col', null);
+const LeanbackGrid1Col = requireNativeComponent('LeanbackGrid1Col', null);
+const LeanbackCategory = requireNativeComponent('LeanBackCategory', null);
 
 const REQUEST_FOCUS_ACTION = 'request-focus';
 
@@ -17,6 +20,12 @@ const getGridView = (numOfCols) => {
 			return LeanbackGrid6Col;
 		case 5:
 			return LeanbackGrid5Col;
+		case 1:
+			return LeanbackGrid1Col;
+		case 3:
+			return LeanbackGrid3Col;
+		case 99:
+			return LeanbackCategory;
 		default:
 			return LeanbackGrid4Col;
 	}

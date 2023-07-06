@@ -3,7 +3,6 @@ package com.rs.leanbacknative.layouts;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
@@ -32,14 +31,13 @@ import java.util.List;
 @SuppressLint("ViewConstructor")
 public class LeanbackRowLayout extends FrameLayout {
 
-    private final ThemedReactContext mContext;
+    private ThemedReactContext mContext;
     private ArrayObjectAdapter mRowsAdapter;
     private String mRowTitle;
     private Card mLastSelectedItem;
     private List<Card> mRows;
-    private final RowsFragment mRowsFragment;
+    private RowsFragment mRowsFragment;
     private boolean firstSelectEventIgnored = false;
-    private final DataManager mDataManager;
 
     public LeanbackRowLayout(@NonNull ThemedReactContext context, RowsFragment rowsFragment) {
         super(context);
@@ -48,7 +46,6 @@ public class LeanbackRowLayout extends FrameLayout {
         mRowsFragment = rowsFragment;
         initializeFragmentManager();
         setupEventListeners();
-        mDataManager = new DataManager();
     }
 
     private void initializeFragmentManager() {
@@ -138,7 +135,11 @@ public class LeanbackRowLayout extends FrameLayout {
         ReadableArray data = dataAndAttributes.getArray("data");
         ReadableMap attributes = dataAndAttributes.getMap("attributes");
 
-        mRows = mDataManager.setupData(data, attributes);
+        mRows = DataManager.setupData(data, attributes);
+
+        if (mRowsAdapter != null) {
+            mRowsAdapter.clear();
+        }
 
         CardPresenterSelector cardPresenterSelector = new CardPresenterSelector(mContext, attributes);
         ArrayObjectAdapter mListRowAdapterWithData = new ArrayObjectAdapter(cardPresenterSelector);
@@ -147,7 +148,6 @@ public class LeanbackRowLayout extends FrameLayout {
             initializeAdapter(attributes);
         }
 
-        mRowsAdapter.clear();
         for (int i = 0; i < mRows.size(); i++) {
             mListRowAdapterWithData.add(mRows.get(i));
         }
@@ -156,7 +156,7 @@ public class LeanbackRowLayout extends FrameLayout {
 
         mRowsAdapter.add(new ListRow(header, mListRowAdapterWithData));
         WritableMap event = Arguments.createMap();
-        event.putString("data", mDataManager.getViewIds().toString());
+        event.putString("data", DataManager.getViewIds().toString());
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), Constants.EVENT_ON_DATA_IDS_READY, event);
     }
 

@@ -9,6 +9,7 @@
     <ImageView
         android:id="@+id/main_image"
         style="?attr/imageCardViewImageStyle"
+        android:scaleType="fitCenter"
         tools:ignore="ContentDescription" />
 
     <RelativeLayout

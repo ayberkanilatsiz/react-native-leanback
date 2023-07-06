@@ -24,10 +24,10 @@ public class GridPresenter extends VerticalGridPresenter {
         ViewHolder viewHolder = super.createGridViewHolder(parent);
         VerticalGridView gridView = viewHolder.getGridView();
 
-        gridView.setWindowAlignment(BaseGridView.WINDOW_ALIGN_BOTH_EDGE);
-        gridView.setWindowAlignmentOffsetPercent(0.0F);
-        gridView.setWindowAlignmentOffset(parent.getResources().getDimensionPixelSize(R.dimen.lb_browse_padding_start));
-        gridView.setItemAlignmentOffsetPercent(0.0F);
+        // gridView.setWindowAlignment(BaseGridView.WINDOW_ALIGN_BOTH_EDGE);
+        // gridView.setWindowAlignmentOffsetPercent(0.0F);
+        // gridView.setWindowAlignmentOffset(parent.getResources().getDimensionPixelSize(R.dimen.lb_browse_padding_start));
+        // gridView.setItemAlignmentOffsetPercent(0.0F);
 
         return viewHolder;
     }

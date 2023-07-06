@@ -9,6 +9,9 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.rs.leanbacknative.managers.CategoryManager;
+import com.rs.leanbacknative.managers.LeanbackGrid1ColManager;
+import com.rs.leanbacknative.managers.LeanbackGrid3ColManager;
 import com.rs.leanbacknative.managers.LeanbackGrid4ColManager;
 import com.rs.leanbacknative.managers.LeanbackGrid5ColManager;
 import com.rs.leanbacknative.managers.LeanbackGrid6ColManager;
@@ -26,6 +29,9 @@ public class LeanbackNativePackage implements ReactPackage {
     public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
                 new LeanbackRowManager(),
+                new CategoryManager(),
+                new LeanbackGrid1ColManager(),
+                new LeanbackGrid3ColManager(),
                 new LeanbackGrid4ColManager(),
                 new LeanbackGrid5ColManager(),
                 new LeanbackGrid6ColManager()
